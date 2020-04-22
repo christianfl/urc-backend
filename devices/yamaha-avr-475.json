@@ -1,0 +1,24 @@
+{
+    "device": {
+        "protocols": {
+            "rest": {
+                "address": "http://Yamaha-AVR/YamahaRemoteControl/ctrl",
+                "request_method": "post",
+                "functions": {
+                    "switch_state": {
+                        "command": "<?xml version=\"1.0\" encoding=\"utf-8\"?><YAMAHA_AV cmd=\"PUT\"><Main_Zone><Power_Control><Power>$VALUE$</Power></Power_Control></Main_Zone></YAMAHA_AV>",
+                        "values": ["On", "Standby"]
+                    },
+                    "switch_direct": {
+                        "command": "<?xml version=\"1.0\" encoding=\"utf-8\"?><YAMAHA_AV cmd=\"PUT\"><Main_Zone><Sound_Video><Direct><Mode>$VALUE$</Mode></Direct></Sound_Video></Main_Zone></YAMAHA_AV>",
+                        "values": ["On", "Off"]
+                    },
+                    "control": {
+                        "command": "<?xml version=\"1.0\" encoding=\"utf-8\"?><YAMAHA_AV cmd=\"PUT\"><Main_Zone><Cursor_Control><Cursor>$VALUE$</Cursor></Cursor_Control></Main_Zone></YAMAHA_AV>",
+                        "values": ["Up", "Down", "Left", "Right", "Sel", "Return"]
+                    }
+                }
+            }
+        }
+    }
+}
