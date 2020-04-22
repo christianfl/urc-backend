@@ -26,7 +26,7 @@ def send_text(target, value):
   connect(target)
 
   text_escaped = value.replace(' ','%s')
-  command = "adb -s" + " " + target + " " + "shell input text" + " " + text_escaped
+  command = "adb -s" + " " + target + " " + "shell input text" + " " + str('\"') + str(text_escaped) + str('\"')
   os.popen(command)
 
   resp = jsonify({"status": "ok"})
