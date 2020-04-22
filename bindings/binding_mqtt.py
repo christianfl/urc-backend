@@ -22,8 +22,12 @@ def action(binding, function, value=None):
   for command_description in binding['functions']:
     if command_description == function:
       subtopic = binding['functions'][function]['subtopic']
-      payload_with_placeholder = binding['functions'][function]['payload']
-      payload = payload_with_placeholder.replace('$VALUE$', value)
+      payload_with_possible_placeholder = binding['functions'][function]['payload']
+      
+      if value == None:
+        payload = payload_with_possible_placeholder
+      else:
+        payload = payload_with_possible_placeholder.replace('$VALUE$', value)
 
       client.publish(os.getenv("MQTT_ROOT_TOPIC") + "/" + topic + "/" + subtopic, payload, qos=1)
       client.disconnect()
