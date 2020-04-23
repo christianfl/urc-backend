@@ -144,11 +144,11 @@ At this point, the .env file is only used for mqtt. But this may change at any t
 
 ### Python 2
 
-```pip install flask flask-cors python-dotenv requests paho-mqtt```
+```pip install flask flask-cors python-dotenv requests paho-mqtt adb-shell```
 
 ### Python 3
 
-```pip3 install flask flask-cors python-dotenv requests paho-mqtt```
+```pip3 install flask flask-cors python-dotenv requests paho-mqtt adb-shell```
 
 ## Starting server in dev-mode
 
