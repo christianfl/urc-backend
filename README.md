@@ -21,7 +21,7 @@ and then parsing the JSON. It will look up if there is a matching device file fo
 
 1. REST (only HTTP POST at the moment but it is trivial to support more) as the backend just uses <a href="https://requests.readthedocs.io/en/master">Requests</a>
 2. MQTT (using <a href="https://www.eclipse.org/paho/clients/python/docs/">Eclipse Paho MQTT Client</a>)
-3. ADB (using the hosts adb application with ```os.popen(adb [...])```)
+3. ADB (using <a href="https://github.com/JeffLIrion/adb_shell">adb_shell</a>)
 
 Note: This backend does not provide a way to add mqtt devices, this has to be done by the installed broker. For adb, the device on which this backend is running on needs adb installed. Typically ```sudo apt install adb``` is enough for debian based linux distros such as the Raspberry Pi.
 
@@ -33,13 +33,16 @@ The device files are located in ```./devices```. They are JSONs and the names ne
 
 ### 1. ADB
 
+Note: You have to obtain an adbkey in order to connect to the device via adb. The standard adb implementation included in most distro's repositories saves them under ``~/.android/adbkey`` after a first successful connection.
+
 ```
 {
     "device": {
         "protocols": {
             "adb": {
                 "ip": "192.168.1.1",
-                "port": "5555"
+                "port": "5555",
+                "adbkey_path": "bindings/adbkey"
             }
         }
     }
