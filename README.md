@@ -2,7 +2,7 @@
 
 ## This backend provides a RESTful API designed for using in small smart home environments. Written in python3.
 
-It works by receiving HTTP POST requests on ```<IP:PORT>/setValue``` with the following JSON content:
+It works by listening for HTTP POST requests on ```<IP:PORT>/setValue``` with the following JSON content:
 
 ```
 {
