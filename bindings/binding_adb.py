@@ -91,6 +91,6 @@ def _connect(target_ip, target_port, target_adbkey):
   signer = PythonRSASigner('', priv)
 
   device = AdbDeviceTcp(target_ip, int(target_port), default_timeout_s=9.)
-  device.connect(rsa_keys=[signer], auth_timeout_s=0.1)
+  device.connect(rsa_keys=[signer], auth_timeout_s=1.)
 
   return device
