@@ -34,11 +34,15 @@ def send_text(target_ip, target_port, target_adbkey, value):
     resp.status_code = 500
     return resp
 
-  text_escaped = value.replace(' ','%s')
+  text = value.replace(' ','%s')
+  text = text.replace('ä','ae')
+  text = text.replace('ö','oe')
+  text = text.replace('ü','ue')
+  text = text.replace('ß','ss')
 
   # Send text to device
   try:
-    response = device.shell('input text "' + text_escaped + '"')
+    response = device.shell('input text "' + text + '"')
   except:
     resp = jsonify({"status": "Could not send text to connected device"})
     resp.status_code = 500
