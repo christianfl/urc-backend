@@ -42,7 +42,7 @@ def setValue():
   except:
     value = None # No value is totally fine, some functions may not need one
 
-  print(json.dumps(request.json, indent=4, ensure_ascii=False))
+  print(json.dumps(request.json, indent=4, ensure_ascii=False).encode('utf-8'))
 
   path_for_device_binding = "devices/" + device + ".json"
 
