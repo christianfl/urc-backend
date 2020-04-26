@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf8
+
 from flask import Flask
 from flask_cors import CORS
 from flask import jsonify

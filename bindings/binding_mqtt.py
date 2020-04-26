@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf8
+
 import os
 import paho.mqtt.client as mqtt
 from flask import jsonify

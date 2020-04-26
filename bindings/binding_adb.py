@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf8
+
 import os
 from subprocess import check_output
 from flask import jsonify
@@ -28,7 +31,7 @@ def action(binding, function, value=None):
 
 def send_text(target_ip, target_port, target_adbkey, value):
   # Validate input text for lower and capital letters, numbers and a few symbols
-  if not (set(value) <= set(string.ascii_lowercase + string.ascii_uppercase + string.digits + 'ä' + 'Ä' + 'ö' + 'Ö' + 'ü' + 'Ü' + '.' + ',' + '-' + '_')):
+  if not (set(value) <= set(string.ascii_lowercase + string.ascii_uppercase + string.digits + u'ä' + u'Ä' + u'ö' + u'Ö' + u'ü' + u'Ü' + '.' + ',' + '-' + '_')):
     resp = jsonify({"status": "Value is invalid. Use only letters, digits, umlauts, dot, comma, minus and underscore"})
     resp.status_code = 404
     return resp
@@ -42,13 +45,13 @@ def send_text(target_ip, target_port, target_adbkey, value):
     return resp
 
   text = value.replace(' ','%s')
-  text = text.replace('ä','ae')
-  text = text.replace('ö','oe')
-  text = text.replace('ü','ue')
-  text = text.replace('Ä','Ae')
-  text = text.replace('Ö','Oe')
-  text = text.replace('Ü','Ue')
-  text = text.replace('ß','ss')
+  text = text.replace(u'ä','ae')
+  text = text.replace(u'ö','oe')
+  text = text.replace(u'ü','ue')
+  text = text.replace(u'Ä','Ae')
+  text = text.replace(u'Ö','Oe')
+  text = text.replace(u'Ü','Ue')
+  text = text.replace(u'ß','ss')
 
   # Send text to device
   try:
