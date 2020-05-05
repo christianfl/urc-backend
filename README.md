@@ -2,7 +2,7 @@
 
 ## This backend provides a RESTful API designed for using in small smart home environments. Written in python3.
 
-It works by listening for HTTP POST requests on ```<IP:PORT>/setValue``` with the following JSON content:
+It works by listening for HTTP POST requests on ``<IP:PORT>/setValue`` with the following JSON content:
 
 ```
 {
@@ -13,7 +13,7 @@ It works by listening for HTTP POST requests on ```<IP:PORT>/setValue``` with th
 }
 ```
 
-and then parsing the JSON. It will look up if there is a matching device file for the device (same-name.json) in the ```./devices``` directory. Based on the desired protocol the request is then redirected to the binding file for the protocol. It will look up if there is a matching function and value in the device file or for some bindings in the binding file itself. If the values are valid, the command specified in the device file or binding file will be executed.
+and then parsing the JSON. It will look up if there is a matching device file for the device (*device-name*.json) in the ``./devices`` directory. Based on the desired protocol the request is then redirected to the binding file for the protocol. It will look up if there is a matching function and value in the device file or for some bindings in the binding file itself. If the values are valid, the command specified in the device file or binding file will be executed.
 
 ### This was not intended to be very secure so use at your own risk! Validation is at this point only partly used for user input values and may not cover all cases. Validation for settings from device file is not implemented at this moment.
 
@@ -23,13 +23,13 @@ and then parsing the JSON. It will look up if there is a matching device file fo
 2. MQTT (using <a href="https://www.eclipse.org/paho/clients/python/docs/">Eclipse Paho MQTT Client</a>)
 3. ADB (using <a href="https://github.com/JeffLIrion/adb_shell">adb_shell</a>)
 
-Note: This backend does not provide a way to add mqtt devices, this has to be done by the installed broker. For adb, the device on which this backend is running on needs adb installed. Typically ```sudo apt install adb``` is enough for debian based linux distros such as the Raspberry Pi.
+Note: This backend does not provide a way to add mqtt devices, this has to be done by the installed broker.
 
 Adding more bindings should be relatively easy by just looking up the code of the existing ones.
 
 ## Device file
 
-The device files are located in ```./devices```. They are JSONs and the names need to match with the device attribute of the received request. A device file can contain specifications for one device and one or more protocols. A typical device file looks like these:
+The device files are located in ``./devices``. They are JSONs and the names need to match with the device attribute of the received request. A device file can contain specifications for one device and one or more protocols. A typical device file looks like these:
 
 ### 1. ADB
 
@@ -48,13 +48,13 @@ Note: You have to obtain an adbkey in order to connect to the device via adb. Th
     }
 }
 ```
-Example file name: device.json
+Example file: ./devices/adb-device.json
 
 ### 2. REST – Working example for Yamaha RX-V475
 
 You may have a look at my <a href="https://github.com/christianfl/av-receiver-docs/">documentation of its commands</a>!
 
-Note: Optional ```$VALUE$``` in value of ```"command"``` will be exchanged from binding file with the value given in the HTTP POST request (if successfully parsed)
+Note: Optional ``$VALUE$`` in value of ``"command"`` will be exchanged from binding file with the value given in the HTTP POST request (if successfully parsed)
 
 ```
 {
@@ -82,11 +82,11 @@ Note: Optional ```$VALUE$``` in value of ```"command"``` will be exchanged from 
     }
 }
 ```
-Example file name: device.json
+Example file: ./devices/rest-device.json
 
 ### 3. MQTT – Working example for <a href="https://github.com/Koenkk/zigbee2mqtt">Zigbee2MQTT</a> Innr RB250C
 
-Note: Optional ```$VALUE$``` in value of ```"payload"``` will be exchanged from binding file with the value given in the HTTP POST request (if successfully parsed)
+Note: Optional ``$VALUE$`` in value of ``"payload"`` will be exchanged from binding file with the value given in the HTTP POST request (if successfully parsed)
 
 ```
 {
@@ -121,9 +121,12 @@ Note: Optional ```$VALUE$``` in value of ```"payload"``` will be exchanged from 
     }
 }
 ```
-Example file name: device.json
+Example file: ./devices/mqtt-device.json
 
-Note: The value ```"permit_all"``` instead of values given in an array permits all values from user input. This is not recommended because they may be executed without further validation! Functions which don't require a value need to set ```"values": []``` in order to work.
+### Permitted values
+
+- ``"values": "permit_all"`` permits all values from user input. This is not recommended for security reasons but can sometimes be very convenient, e.g. for number ranges.
+- ``"values": []`` prohibits all values. This is intended for functions which don't need a specific value to set. The server throws an exception if this flag is set and the POST request from the user containts a value.
 
 ## .env file
 
@@ -144,15 +147,17 @@ At this point, the .env file is only used for mqtt. But this may change at any t
 
 ### Python 2
 
-```pip install flask flask-cors python-dotenv requests paho-mqtt adb-shell```
+``pip install flask flask-cors python-dotenv requests paho-mqtt adb-shell``
 
 ### Python 3
 
-```pip3 install flask flask-cors python-dotenv requests paho-mqtt adb-shell```
+``pip3 install flask flask-cors python-dotenv requests paho-mqtt adb-shell``
 
 ## Starting server in dev-mode
 
-```python app.py```
+``python app.py``
+
+This starts the server on Port ``5000``.
 
 ## Contributing
 
