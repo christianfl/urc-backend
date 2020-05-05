@@ -1,4 +1,4 @@
-# smarthome backend
+# urc-backend
 
 ## This backend provides a RESTful API designed for using in small smart home environments. Written in python3.
 
