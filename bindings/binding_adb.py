@@ -31,8 +31,8 @@ def action(binding, function, value=None):
 
 def send_text(target_ip, target_port, target_adbkey, value):
   # Validate input text for lower and capital letters, numbers and a few symbols
-  if not (set(value) <= set(string.ascii_lowercase + string.ascii_uppercase + string.digits + u'ä' + u'Ä' + u'ö' + u'Ö' + u'ü' + u'Ü' + u'ß' + '.' + ',' + '-' + '_')):
-    resp = jsonify({"status": "Value is invalid. Use only letters, digits, umlauts, dot, comma, minus and underscore"})
+  if not (set(value) <= set(string.ascii_lowercase + string.ascii_uppercase + string.digits + u'ä' + u'Ä' + u'ö' + u'Ö' + u'ü' + u'Ü' + u'ß' + '.' + ',' + '-' + '_' + ' ')):
+    resp = jsonify({"status": "Value is invalid. Use only letters, digits, umlauts, dot, comma, minus, underscore and space"})
     resp.status_code = 404
     return resp
 
